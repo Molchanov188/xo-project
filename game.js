@@ -1,6 +1,5 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
-//ctx.fillRect(25, 25, 100, 100);
 
 const beginButton = document.getElementById("beginButton");
 
@@ -33,6 +32,12 @@ function drawGrid(){
 	ctx.fill();
 }
 
+function handlerClickCanvas(e){
+	var mouseX = e.clientX;
+	var mouseY = e.clientY;
+	console.log(mouseX + " " + mouseY);
+}
+
 function draw(e){
 	
 	drawGrid();
@@ -40,3 +45,4 @@ function draw(e){
 }
 
 beginButton.addEventListener("click", draw);
+cvs.addEventListener("click", handlerClickCanvas);
