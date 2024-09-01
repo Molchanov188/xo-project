@@ -91,8 +91,6 @@ function handlerClickCanvas(e){
 		drawO(centerX, centerY);
 		is_X_turn = true;
 	}
-	//drawX(centerX, centerY);
-	//drawO(centerX, centerY);
 }
 
 
