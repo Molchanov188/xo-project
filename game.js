@@ -32,6 +32,25 @@ function drawGrid(){
 	ctx.fill();
 }
 
+//Рисование крестика
+function drawX(centerX, centerY){
+	ctx.beginPath();
+	ctx.moveTo(centerX - 25, centerY - 25);
+	ctx.lineTo(centerX + 25, centerY + 25);
+	ctx.lineTo(centerX + 25, centerY + 24);
+	ctx.lineTo(centerX -25, centerY - 26);
+	ctx.lineTo(centerX -25, centerY - 25);
+	ctx.fill();
+	
+	ctx.beginPath();
+	ctx.moveTo(centerX + 25, centerY - 25);
+	ctx.lineTo(centerX - 25, centerY + 25);
+	ctx.lineTo(centerX - 25, centerY + 24);
+	ctx.lineTo(centerX + 25, centerY - 26);
+	ctx.lineTo(centerX + 25, centerY - 25);
+	ctx.fill();
+}
+
 function handlerClickCanvas(e){
 	var mouseX = e.clientX;
 	var mouseY = e.clientY;
@@ -55,8 +74,15 @@ function handlerClickCanvas(e){
 		 centerY = 250;
 	}
 	
+	drawX(centerX, centerY);
 }
 
+
+
+//Рисование нолика
+function drawO(){
+	
+}
 
 function draw(e){
 	
