@@ -84,8 +84,15 @@ function handlerClickCanvas(e){
 		 centerY = 250;
 	}
 	
+	if(is_X_turn){
+		drawX(centerX, centerY);
+		is_X_turn = false;
+	}else{
+		drawO(centerX, centerY);
+		is_X_turn = true;
+	}
 	//drawX(centerX, centerY);
-	drawO(centerX, centerY);
+	//drawO(centerX, centerY);
 }
 
 
