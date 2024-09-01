@@ -4,7 +4,10 @@ var ctx = cvs.getContext("2d");
 // Переменная, следящая за очередностью отрисовки
 var is_X_turn = true;
 
-const beginButton = document.getElementById("beginButton");
+//Переменная для хранения состояния кнопки
+var isBegin = true;
+
+var beginButton = document.getElementById("beginButton");
 
 function drawGrid(){
 	ctx.beginPath();
@@ -93,11 +96,19 @@ function handlerClickCanvas(e){
 	}
 }
 
-
+function clearGrid(){
+	ctx.clearRect(0, 0, 300, 300);
+}
 
 function draw(e){
+	if(isBegin){
+		drawGrid();
+		isBegin = false;
+	}else{
+		clearGrid();
+	}
 	
-	drawGrid();
+	beginButton.innerHTML = "Выйти";
 	
 }
 
