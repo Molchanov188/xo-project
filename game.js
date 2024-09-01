@@ -51,6 +51,13 @@ function drawX(centerX, centerY){
 	ctx.fill();
 }
 
+//Рисование нолика
+function drawO(centerX, centerY){
+	ctx.beginPath();
+	ctx.arc(centerX, centerY, 48, 0, Math.PI / 180 * 360);
+	ctx.stroke();
+}
+
 function handlerClickCanvas(e){
 	var mouseX = e.clientX;
 	var mouseY = e.clientY;
@@ -74,15 +81,11 @@ function handlerClickCanvas(e){
 		 centerY = 250;
 	}
 	
-	drawX(centerX, centerY);
+	//drawX(centerX, centerY);
+	drawO(centerX, centerY);
 }
 
 
-
-//Рисование нолика
-function drawO(){
-	
-}
 
 function draw(e){
 	
