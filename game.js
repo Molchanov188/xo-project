@@ -4,9 +4,6 @@ let ctx = cvs.getContext("2d");
 //Переменная, следящая за тем, чтобы после окончания игры нельзя было продолжить игру без начала новой игры
 let isEndGame = false;
 
-// Переменная, следящая за очередностью отрисовки
-let isMyTurn = true;
-
 // Переменная, следящая за выбранной стороной (крестики или нолики)
 // Крестики: 1, нолики: 0
 let mySide = 1;
@@ -23,41 +20,33 @@ let matrix = [
 
 let centers = [50, 150, 250];
 
-function alertWin(side){
-	if(side == mySide){
-		alert("Вы выиграли!!!");
-	}else{
-		alert("Вы проиграли!!!");
-	}
-	isEndGame = true;
-}
-
 function checkWin(){
-	// Проверка строк на завершенные линии крестиков или ноликов
+	// Проверка столбцов на завершенные линии крестиков или ноликов
 	for(let i = 0; i < 3; i++){
 		let side = matrix[0][i];
-		if(matrix[1][i] == side && matrix[2][i] == side){
-			alertWin(side);
-			//return [-1, i];
+		if(matrix[1][i] == side && matrix[2][i] == side && side != 2){
+			isEndGame = true;
+			return true;
 		}
 	}
 	
-	// Проверка столбцов на завершенные линии крестиков или ноликов
+	// Проверка строк на завершенные линии крестиков или ноликов
 	for(let i = 0; i < 3; i++){
 		let side = matrix[i][0];
-		if(matrix[i][1] == side && matrix[i][2] == side){
-			alertWin(side);
-			//return [i, -1];
+		if(matrix[i][1] == side && matrix[i][2] == side && side != 2){
+			isEndGame = true;
+			return true;
 		}
 	}
 	
 	// Проверка диагоналей на завершенные линии крестиков или ноликов
 	let side = matrix[1][1];
-	if(matrix[0][0] == side && matrix[2][2] == side){
-		alertWin(side);
-		//return [];
-	}else if(matrix[2][0] == side && matrix[0][2] == side){
-		alertWin(side);
+	if(matrix[0][0] == side && matrix[2][2] == side && side != 2){
+		isEndGame = true;
+		return true;
+	}else if(matrix[2][0] == side && matrix[0][2] == side && side != 2){
+		isEndGame = true;
+		return true;
 	}
 }
 
@@ -65,44 +54,44 @@ function checkWin(){
 // Структуры: строка ("l"), столбец ("c"), диагональ("d")
 //  Номер структуры содержит номер строки, столбца или диагонали (диагональ от левого верха = 0, другая = 1)
 
-// Возвращая matrixX и matrixY для хода
+// Возвращая matrixY и matrixX для хода
 function checkCanWin(side){
-	// Проверка строк
+	// Проверка столбцов
 	for(let i = 0; i < 3; i++){
-		if(matrix[0][i] == 0 && matrix[1][i] == matrix[2][i] && matrix[2][i] == side){
+		if(matrix[0][i] == 2 && matrix[1][i] == matrix[2][i] && matrix[2][i] == side){
 			return [0, i];
-		}else if(matrix[1][i] == 0 && matrix[0][i] == matrix[2][i] && matrix[2][i] == side){
+		}else if(matrix[1][i] == 2 && matrix[0][i] == matrix[2][i] && matrix[2][i] == side){
 			return [1, i];
-		}else if(matrix[2][i] == 0 && matrix[0][i] == matrix[1][i] && matrix[1][i] == side){
+		}else if(matrix[2][i] == 2 && matrix[0][i] == matrix[1][i] && matrix[1][i] == side){
 			return [2, i];
 		}
 	}
 	
-	// Проверка столбцов
+	// Проверка строк
 	for(let i = 0; i < 3; i++){
-		if(matrix[i][0] == 0 && matrix[i][1] == matrix[i][2] && matrix[i][2] == side){
+		if(matrix[i][0] == 2 && matrix[i][1] == matrix[i][2] && matrix[i][2] == side){
 			return [i, 0];
-		}else if(matrix[i][1] == 0 && matrix[i][0] == matrix[i][2] && matrix[i][2] == side){
+		}else if(matrix[i][1] == 2 && matrix[i][0] == matrix[i][2] && matrix[i][2] == side){
 			return [i, 1];
-		}else if(matrix[i][2] == 0 && matrix[i][0] == matrix[i][1] && matrix[i][1] == side){
+		}else if(matrix[i][2] == 2 && matrix[i][0] == matrix[i][1] && matrix[i][1] == side){
 			return [i, 2];
 		}
 	}
 	
 	// Проверка диагоналей
-	if(matrix[0][0] == 0 && matrix[1][1] == matrix[2][2] && matrix[2][2] == side){
+	if(matrix[0][0] == 2 && matrix[1][1] == matrix[2][2] && matrix[2][2] == side){
 		return [0, 0];
-	}else if(matrix[1][1] == 0 && matrix[0][0] == matrix[2][2] && matrix[2][2] == side){
+	}else if(matrix[1][1] == 2 && matrix[0][0] == matrix[2][2] && matrix[2][2] == side){
 		return [1, 1];
-	}else if(matrix[2][2] == 0 && matrix[0][0] == matrix[1][1] && matrix[1][1] == side){
+	}else if(matrix[2][2] == 2 && matrix[0][0] == matrix[1][1] && matrix[1][1] == side){
 		return [2, 2];
 	}
 	
-	if(matrix[2][0] == 0 && matrix[1][1] == matrix[0][2] && matrix[0][2] == side){
+	if(matrix[2][0] == 2 && matrix[1][1] == matrix[0][2] && matrix[0][2] == side){
 		return [2, 0];
-	}else if(matrix[1][1] == 0 && matrix[2][0] == matrix[0][2] && matrix[0][2] == side){
+	}else if(matrix[1][1] == 2 && matrix[2][0] == matrix[0][2] && matrix[0][2] == side){
 		return [1, 1];
-	}else if(matrix[0][2] == 0 && matrix[2][0] == matrix[1][1] && matrix[1][1] == side){
+	}else if(matrix[0][2] == 2 && matrix[2][0] == matrix[1][1] && matrix[1][1] == side){
 		return [0, 2];
 	}
 	
@@ -164,15 +153,53 @@ function drawO(centerX, centerY){
 	ctx.stroke();
 }
 
-function doTurn(matrixX, matrixY, side){
+function doTurn(matrixY, matrixX, side){
 	
 	if(side == 1){
 		drawX(centers[matrixX], centers[matrixY]);
-		matrix[matrixX][matrixY] = 1;
+		matrix[matrixY][matrixX] = 1;
 	}else{
 		drawO(centers[matrixX], centers[matrixY]);
-		matrix[matrixX][matrixY] = 0;
+		matrix[matrixY][matrixX] = 0;
 	}
+}
+
+function getRandomTurn() {
+	let arrPosMatrix = [];
+	
+	for(let i = 0; i < 3; i++){
+		for(let j = 0; j < 3; j++){
+			if(matrix[i][j] == 2){
+				arrPosMatrix.push([i, j]);
+			}
+		}
+	}
+	
+	if(arrPosMatrix.length == 0){
+		isEndGame = true;
+		alert("Ошибка! Нет полей для хода!");
+	}
+	
+	return arrPosMatrix[Math.floor(Math.random() * arrPosMatrix.length)];
+}
+
+function checkDraw(){
+	let arrPosMatrix = [];
+	
+	for(let i = 0; i < 3; i++){
+		for(let j = 0; j < 3; j++){
+			if(matrix[i][j] == 2){
+				arrPosMatrix.push([i, j]);
+			}
+		}
+	}
+	
+	if(arrPosMatrix.length == 0){
+		isEndGame = true;
+		return true;
+	}
+	
+	return false;
 }
 
 function turnAI(){
@@ -181,26 +208,27 @@ function turnAI(){
 	if(mySide == 1){
 		sideAI = 0;
 	}else{
-		sideAI - 1;
+		sideAI = 1;
 	}
 	
 	let posMatrix = checkCanWin(sideAI);
 	if(posMatrix[0] != -1){
 		doTurn(posMatrix[0], posMatrix[1], sideAI);
-		checkWin();
-		return;
+	}else{
+		posMatrix = checkCanWin(mySide);
+		if(posMatrix[0] != -1){
+			doTurn(posMatrix[0], posMatrix[1], sideAI);
+		}else{
+			posMatrix = getRandomTurn();
+			doTurn(posMatrix[0], posMatrix[1], sideAI);
+		}
 	}
 	
-	posMatrix = checkCanWin(mySide);
-	if(posMatrix[0] != -1){
-		doTurn(posMatrix[0], posMatrix[1], sideAI);
-		checkWin();
-		return;
+	if(checkWin()){
+		alert("Вы проиграли!!!");
+	}else if(checkDraw()){
+		alert("Ничья!!!");
 	}
-	
-	
-	
-	checkWin();
 }
 
 function handlerClickCanvas(e){
@@ -239,38 +267,48 @@ function handlerClickCanvas(e){
 		 matrixY = 2;
 	}
 	
-	doTurn(matrixX, matrixY, sideAI);
+	doTurn(matrixY, matrixX, mySide);
 	
-	checkWin();
+	if(checkWin()){
+		alert("Вы выиграли!!!");
+	}else if(checkDraw()){
+		alert("Ничья!!!");
+	}else{
+		turnAI();
+	}
 	
 }
 
 function clearGrid(){
+	
+	for(let i = 0; i < 3; i++){
+		for(let j = 0; j < 3; j++){
+			matrix[i][j] = 2;
+		}
+	}
+	
 	ctx.clearRect(0, 0, 300, 300);
 	drawGrid();
 	isEndGame = false;
-}
-
-function draw(e){
-	clearGrid()
 	
-}
-
-function documentReady(e){
-	clearGrid();
+	if(mySide == 0){
+		turnAI();
+	}
 }
 
 function radioButtonClick(e){
 	if(e.target.value == "X"){
+		mySide = 1;
 		clearGrid();
 	}else{
+		mySide = 0;
 		clearGrid();
 	}
 }
 
-beginButton.addEventListener("click", draw);
+beginButton.addEventListener("click", clearGrid);
 cvs.addEventListener("click", handlerClickCanvas);
-window.addEventListener("load", documentReady);
+window.addEventListener("load", clearGrid);
 for (let i = 0; i < myForm.sides.length; i++) {
     myForm.sides[i].addEventListener("click", radioButtonClick);
 }
