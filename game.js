@@ -103,7 +103,7 @@ function clearGrid(){
 function draw(e){
 	if(isBegin){
 		drawGrid();
-		isBegin = false;
+		//isBegin = false;
 	}else{
 		clearGrid();
 	}
