@@ -1,7 +1,7 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
 
-const beginButton = document.getElementById("beginButton");
+var beginButton = document.getElementById("beginButton");
 
 function drawGrid(){
 	ctx.beginPath();
@@ -86,10 +86,11 @@ function handlerClickCanvas(e){
 }
 
 
-
 function draw(e){
 	
 	drawGrid();
+	
+	beginButton.innerHTML = "Выйти";
 	
 }
 
