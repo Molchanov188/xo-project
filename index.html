@@ -10,7 +10,13 @@
 
  <canvas id="canvas" width="300" height="300"></canvas>
  
- <button id="beginButton">Начать</button>
+ <form name="myForm">
+	<span>Ваша сторона: </span>
+    <input type="radio" name="sides" value="X" checked /><span>Крестики</span>
+    <input type="radio" name="sides" value="O" /><span>Нолики</span>
+</form>
+ 
+ <button id="beginButton">Начать сначала</button>
 
  <script src="game.js"></script>
 </body>
