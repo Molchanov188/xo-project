@@ -1,10 +1,10 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
-ctx.fillRect(25, 25, 100, 100);
+//ctx.fillRect(25, 25, 100, 100);
 
-const beginButton = document.search.beginButton;
+const beginButton = document.getElementById("beginButton");
 
-function draw(){
+function draw(e){
 	
 	ctx.fillRect(25, 25, 100, 100);
 	
