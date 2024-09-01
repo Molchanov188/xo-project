@@ -35,8 +35,28 @@ function drawGrid(){
 function handlerClickCanvas(e){
 	var mouseX = e.clientX;
 	var mouseY = e.clientY;
-	console.log(mouseX + " " + mouseY);
+	
+	var centerX;
+	var centerY;
+	
+	if(mouseX < 100){
+		centerX = 50;
+	}else if(mouseX < 200){
+		centerX = 150;
+	}else{
+		 centerX = 250;
+	}
+	
+	if(mouseY < 100){
+		centerY = 50;
+	}else if(mouseY < 200){
+		centerY = 150;
+	}else{
+		 centerY = 250;
+	}
+	
 }
+
 
 function draw(e){
 	
