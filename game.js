@@ -1,6 +1,9 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
 
+// Переменная, следящая за очередностью отрисовки
+var is_X_turn = true;
+
 const beginButton = document.getElementById("beginButton");
 
 function drawGrid(){
