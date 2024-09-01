@@ -2,7 +2,7 @@ var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
 
 //Переменная для хранения состояния кнопки
-var is_begin = true;
+var isBegin = true;
 
 var beginButton = document.getElementById("beginButton");
 
@@ -88,14 +88,17 @@ function handlerClickCanvas(e){
 	drawO(centerX, centerY);
 }
 
+function clearGrid(){
+	ctx.clearRect(0, 0, 300, 300);
+}
 
 function draw(e){
-	if(is_begin){
+	if(isBegin){
 		drawGrid();
+		isBegin = false;
 	}else{
-		
+		clearGrid();
 	}
-	
 	
 	beginButton.innerHTML = "Выйти";
 	
