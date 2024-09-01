@@ -106,6 +106,7 @@ function draw(e){
 		//isBegin = false;
 	}else{
 		clearGrid();
+		//isBegin = true;
 	}
 	
 	beginButton.innerHTML = "Выйти";
