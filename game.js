@@ -1,6 +1,9 @@
 var cvs = document.getElementById("canvas");
 var ctx = cvs.getContext("2d");
 
+//Переменная для хранения состояния кнопки
+var is_begin = true;
+
 var beginButton = document.getElementById("beginButton");
 
 function drawGrid(){
@@ -87,8 +90,12 @@ function handlerClickCanvas(e){
 
 
 function draw(e){
+	if(is_begin){
+		drawGrid();
+	}else{
+		
+	}
 	
-	drawGrid();
 	
 	beginButton.innerHTML = "Выйти";
 	
