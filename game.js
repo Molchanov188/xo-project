@@ -4,8 +4,7 @@ var ctx = cvs.getContext("2d");
 
 const beginButton = document.getElementById("beginButton");
 
-function draw(e){
-	
+function drawGrid(){
 	ctx.beginPath();
 	ctx.moveTo(100, 0);
 	ctx.lineTo(100, 300);
@@ -32,6 +31,12 @@ function draw(e){
 	ctx.lineTo(300, 201);
 	ctx.lineTo(0, 201);
 	ctx.fill();
+}
+
+function draw(e){
+	
+	drawGrid();
+	
 }
 
 beginButton.addEventListener("click", draw);
