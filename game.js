@@ -314,6 +314,10 @@ function handlerClickCanvas(e){
 		 matrixY = 2;
 	}
 	
+	if(matrix[matrixY][matrixX] != 2){
+		return;
+	}
+	
 	doTurn(matrixY, matrixX, mySide);
 	
 	if(checkWin()){
