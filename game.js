@@ -20,6 +20,12 @@ let matrix = [
 
 let centers = [50, 150, 250];
 
+/**
+ * Проверяет, завершены ли линии крестиков или ноликов
+ * в столбцах, строках или диагоналях. Возвращает true,
+ * если завершены, иначе - false.
+ * @return {boolean} Есть ли выигрыш.       
+ */
 function checkWin(){
 	// Проверка столбцов на завершенные линии крестиков или ноликов
 	for(let i = 0; i < 3; i++){
@@ -48,13 +54,16 @@ function checkWin(){
 		isEndGame = true;
 		return true;
 	}
+	
+	return false;
 }
 
-// Возвращает массив из двух элементов: вид структуры и номер структуры
-// Структуры: строка ("l"), столбец ("c"), диагональ("d")
-//  Номер структуры содержит номер строки, столбца или диагонали (диагональ от левого верха = 0, другая = 1)
-
-// Возвращая matrixY и matrixX для хода
+/**
+ * Определяет, может ли указанная в аргументе сторона 
+ * выиграть игру за один ход.
+ * @param {number}   side -  Сторона, которая совершает ход (крестики или нолики)
+ * @return {posMatrixXY} Координаты для хода  
+ */
 function checkCanWin(side){
 	// Проверка столбцов
 	for(let i = 0; i < 3; i++){
@@ -98,6 +107,9 @@ function checkCanWin(side){
 	return [-1];
 }
 
+/**
+ * Рисует сетку для игры.                      
+ */
 function drawGrid(){
 	ctx.beginPath();
 	ctx.moveTo(100, 0);
@@ -127,7 +139,11 @@ function drawGrid(){
 	ctx.fill();
 }
 
-//Рисование крестика
+/**
+ * Рисует крестик
+ * @param   {number}   centerX  - Координаты на canvas по оси X
+ * @param   {number}   centerY  - Координаты на canvas по оси Y
+ */
 function drawX(centerX, centerY){
 	ctx.beginPath();
 	ctx.moveTo(centerX - 25, centerY - 25);
@@ -146,13 +162,25 @@ function drawX(centerX, centerY){
 	ctx.fill();
 }
 
-//Рисование нолика
+/**
+ * Рисует нолик.
+ * @param   {number}   centerX  - Координаты на canvas по оси X
+ * @param   {number}   centerY  - Координаты на canvas по оси Y
+ */
 function drawO(centerX, centerY){
 	ctx.beginPath();
 	ctx.arc(centerX, centerY, 48, 0, Math.PI / 180 * 360);
 	ctx.stroke();
 }
 
+/**
+ * Обрабатывает нужные действия для совершения хода.
+ * Рисует крестик или нолик и делает исправления в матрице,
+ * хранящей состояние поля игры.
+ * @param   {number}   matrixY  - Координаты на поле по оси Y
+ * @param   {number}   matrixX  - Координаты на поле по оси X
+ * @param   {number}   side -  Сторона, которая совершает ход (крестики или нолики)
+ */
 function doTurn(matrixY, matrixX, side){
 	
 	if(side == 1){
@@ -164,6 +192,11 @@ function doTurn(matrixY, matrixX, side){
 	}
 }
 
+/**
+ * Получает случайную позицию для хода
+ * из всех пустых клеток, куда можно походить.
+ * @return  {arrPosMatrix} Массив, определяющий координаты хода.
+ */
 function getRandomTurn() {
 	let arrPosMatrix = [];
 	
@@ -183,6 +216,10 @@ function getRandomTurn() {
 	return arrPosMatrix[Math.floor(Math.random() * arrPosMatrix.length)];
 }
 
+/**
+ * Проверяет, есть ли ничья.
+ * @return  {boolean} Есть ли ничья. 
+ */
 function checkDraw(){
 	let arrPosMatrix = [];
 	
@@ -202,6 +239,9 @@ function checkDraw(){
 	return false;
 }
 
+/**
+ * Совершает ход ИИ, играющего против игрока. 
+ */
 function turnAI(){
 	
 	let sideAI;
@@ -231,6 +271,13 @@ function turnAI(){
 	}
 }
 
+/**
+ * Обрабатывает нажатие на canvas.
+ * Определяет, на какую клетку кликнул игрок,
+ * и совершает ход.
+ *
+ * @param  {argsEvent} e - Аргумент, передаваемый обработчику события
+ */
 function handlerClickCanvas(e){
 	
 	if(isEndGame){
@@ -279,6 +326,9 @@ function handlerClickCanvas(e){
 	
 }
 
+/**
+ * Очищает поле для игры.
+ */
 function clearGrid(){
 	
 	for(let i = 0; i < 3; i++){
@@ -296,6 +346,10 @@ function clearGrid(){
 	}
 }
 
+/**
+ * Обрабатывает нажатие на радиокнопку.
+ * @param  {argsEvent} e - Аргумент, передаваемый обработчику события
+ */
 function radioButtonClick(e){
 	if(e.target.value == "X"){
 		mySide = 1;
